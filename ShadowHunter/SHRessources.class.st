@@ -4,6 +4,22 @@ Class {
 	#category : #'ShadowHunter-Ressources'
 }
 
+{ #category : #lightCards }
+SHRessources class >> ange_gardien_Card [
+
+	^ Dictionary new
+		  at: 'desc'
+		  put:
+			  'Les attaques ne vous infligent aucune blessure jusqu''à votre prochain tour';
+		  at: 'image' put: nil;
+		  at: 'type' put: 'light';
+		  at: 'effects' put: { (Dictionary new
+				   at: 'target' put: 'self';
+				   at: 'damage' put: nil;
+				   at: 'heal' put: nil;
+				   at: 'stuff' put: nil) }
+]
+
 { #category : #placesCards }
 SHRessources class >> antreCard [ 
 	^ Dictionary new
@@ -31,6 +47,32 @@ SHRessources class >> banane_Card [
 				at: 'heal' put: nil;
 				at: 'stuff' put: nil }
         
+]
+
+{ #category : #lightCards }
+SHRessources class >> benediction_Card [
+
+	^ Dictionary new
+		  at: 'desc' put: 'Choisissez un joueur autre que vous et lancez le dé à 6 faces, ce joueur se soigne d''autant de blessures que le résultat du dé';
+		  at: 'image' put: nil;
+		  at: 'type' put: 'light';
+		  at: 'effects' put: { (Dictionary new
+				   at: 'target' put: 'anotherPlayer';
+				   at: 'damage' put: nil;
+				   at: 'heal' put: '1d6';
+				   at: 'stuff' put: nil) }
+]
+
+{ #category : #lightCards }
+SHRessources class >> boussole_mystique_Card [
+
+	^ Dictionary new
+		  at: 'desc'
+		  put:
+			  'Quand vous vous déplacez, vous pouvez lancer 2 fois les dés et choisir quel résultat utiliser';
+		  at: 'image' put: nil;
+		  at: 'type' put: 'light';
+		  at: 'effects' put: 'stuff'
 ]
 
 { #category : #darkCards }
@@ -64,6 +106,45 @@ SHRessources class >> cimetiereCard [
 
 { #category : #darkCards }
 SHRessources class >> darkCards [ 
+	^ Dictionary new at: 'banane' put: self banane_Card;
+	at: 'chauve-souris' put: self chauve_souris_Card;
+	at: 'hachoir' put: self hachoir_Card;
+	at: 'masamune' put: self masamune_Card;
+	at: 'poupee' put: self poupee_Card;
+	at: 'succube' put: self succube_Card 
+]
+
+{ #category : #lightCards }
+SHRessources class >> eau_benite_Card [
+
+	^ Dictionary new
+		  at: 'desc'
+		  put:
+			  'Vous êtes soignés de 2 blessures';
+		  at: 'image' put: nil;
+		  at: 'type' put: 'light';
+		  at: 'effects' put: {
+				  (Dictionary new
+					   at: 'target' put: 'self';
+					   at: 'damage' put: nil;
+					   at: 'heal' put: 2;
+					   at: 'stuff' put: nil) }
+]
+
+{ #category : #lightCards }
+SHRessources class >> eclair_purificateur_Card [
+
+	^ Dictionary new
+		  at: 'desc'
+		  put:
+			  'Chaque personnage à l''exception de vous-même subit 2 blessures';
+		  at: 'image' put: nil;
+		  at: 'type' put: 'light';
+		  at: 'effects' put: { (Dictionary new
+				   at: 'target' put: 'allWithoutPlayer';
+				   at: 'damage' put: 2;
+				   at: 'heal' put: nil;
+				   at: 'stuff' put: nil) }
 ]
 
 { #category : #placesCards }
@@ -92,6 +173,17 @@ SHRessources class >> hachoir_Card [
 		at: 'image' put: nil;
 		at: 'type' put: 'dark';
 		at: 'effects' put: 'stuff'
+]
+
+{ #category : #lightCards }
+SHRessources class >> lightCards [
+	^ Dictionary new at: 'ange' put: self ange_gardien_Card;
+	at: 'benediction' put: self benediction_Card;
+	at: 'boussole' put: self boussole_mystique_Card;
+	at: 'eau' put: self eau_benite_Card;
+	at: 'eclair' put: self eclair_purificateur_Card;
+	at: 'toge' put: self toge_sainte_Card 
+	
 ]
 
 { #category : #darkCards }
@@ -233,6 +325,144 @@ SHRessources class >> succube_Card [
 				at: 'heal' put: nil;
 				at: 'stuff' put: 1 }
         
+]
+
+{ #category : #lightCards }
+SHRessources class >> toge_sainte_Card [
+
+	^ Dictionary new
+		  at: 'desc'
+		  put:
+			  'Vos attaques infligent 1 blessure de moins et les blessures que vous subissez sont réduites de 1';
+		  at: 'image' put: nil;
+		  at: 'type' put: 'light';
+		  at: 'effects' put: 'stuff'
+]
+
+{ #category : #visionCards }
+SHRessources class >> visionCards [
+
+	^ Dictionary new
+		  at: 'cupide' put: self vision_cupide_Card;
+		at: 'divine' put: self vision_divine_Card;
+		at: 'enivrante' put: self vision_enivrante_Card;
+		at: 'foudroyante' put: self vision_foudroyante_Card;
+		at: 'lugubre' put: self vision_lugubre_Card;
+		at: 'mortifere' put: self vision_mortifere_Card 
+]
+
+{ #category : #visionCards }
+SHRessources class >> vision_cupide_Card [
+
+	^ Dictionary new
+		  at: 'desc'
+		  put:
+			  'Je pense que tu es SHADOW. Si c''est le cas tu dois: soit me donner une carte équipement, soit subir 1 blessure';
+		  at: 'image' put: nil;
+		  at: 'type' put: 'vision';
+		  at: 'applyTo' put: 'Shadow';
+		  at: 'effects' put: {
+				  (Dictionary new
+					   at: 'target' put: 'self';
+					   at: 'damage' put: 1;
+					   at: 'heal' put: nil;
+					   at: 'stuff' put: nil).
+				  (Dictionary new
+					   at: 'target' put: 'self';
+					   at: 'damage' put: nil;
+					   at: 'heal' put: nil;
+					   at: 'stuff' put: 1) }
+]
+
+{ #category : #visionCards }
+SHRessources class >> vision_divine_Card [
+
+	^ Dictionary new
+		  at: 'desc'
+		  put:
+			  'Je pense que tu es HUNTER. Si c''est le cas soigne 1 blessure';
+		  at: 'image' put: nil;
+		  at: 'type' put: 'vision';
+		  at: 'applyTo' put: 'Hunter';
+		  at: 'effects' put: { (Dictionary new
+				   at: 'target' put: 'self';
+				   at: 'damage' put: nil;
+				   at: 'heal' put: 1;
+				   at: 'stuff' put: nil) }
+]
+
+{ #category : #visionCards }
+SHRessources class >> vision_enivrante_Card [
+
+	^ Dictionary new
+		  at: 'desc'
+		  put:
+			  'Je pense que tu es HUNTER. Si c''est le cas tu dois: soit me donner une carte équipement, soit subir 1 blessure';
+		  at: 'image' put: nil;
+		  at: 'type' put: 'vision';
+		  at: 'applyTo' put: 'Hunter';
+		  at: 'effects' put: {
+				  (Dictionary new
+					   at: 'target' put: 'self';
+					   at: 'damage' put: 1;
+					   at: 'heal' put: nil;
+					   at: 'stuff' put: nil).
+				  (Dictionary new
+					   at: 'target' put: 'self';
+					   at: 'damage' put: nil;
+					   at: 'heal' put: nil;
+					   at: 'stuff' put: 1) }
+]
+
+{ #category : #visionCards }
+SHRessources class >> vision_foudroyante_Card [
+
+	^ Dictionary new
+		  at: 'desc'
+		  put:
+			  'Je pense que tu es SHADOW. Si c''est le cas subis 1 blessure';
+		  at: 'image' put: nil;
+		  at: 'type' put: 'vision';
+		  at: 'applyTo' put: 'Shadow';
+		  at: 'effects' put: { (Dictionary new
+				   at: 'target' put: 'self';
+				   at: 'damage' put: 1;
+				   at: 'heal' put: nil;
+				   at: 'stuff' put: nil) }
+]
+
+{ #category : #visionCards }
+SHRessources class >> vision_lugubre_Card [
+
+	^ Dictionary new
+		  at: 'desc'
+		  put:
+			  'Je pense que tu es SHADOW. Si c''est le cas soigne 1 blessure';
+		  at: 'image' put: nil;
+		  at: 'type' put: 'vision';
+		  at: 'applyTo' put: 'Shadow';
+		  at: 'effects' put: { (Dictionary new
+				   at: 'target' put: 'self';
+				   at: 'damage' put: nil;
+				   at: 'heal' put: 1;
+				   at: 'stuff' put: nil) }
+]
+
+{ #category : #visionCards }
+SHRessources class >> vision_mortifere_Card [
+
+	^ Dictionary new
+		  at: 'desc'
+		  put:
+			  'Je pense que tu es HUNTER. Si c''est le cas subis 1 blessure';
+		  at: 'image' put: nil;
+		  at: 'type' put: 'vision';
+		  at: 'applyTo' put: 'Hunter';
+		  at: 'effects' put: { (Dictionary new
+				   at: 'target' put: 'self';
+				   at: 'damage' put: 1;
+				   at: 'heal' put: nil;
+				   at: 'stuff' put: nil) }
 ]
 
 { #category : #'see class side' }
